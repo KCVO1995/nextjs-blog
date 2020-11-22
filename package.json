@@ -8,12 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^14.14.9",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
