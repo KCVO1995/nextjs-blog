@@ -1,22 +1,29 @@
 import {GetStaticProps, NextPage} from 'next';
 import React from 'react';
-import {getPosts} from '../lib/posts';
+import {getPosts} from '../../lib/posts';
+import Link from 'next/link';
 
 type Props = {
   posts: Post[]
 }
 
-const posts: NextPage<Props> = (props) => {
+const index: NextPage<Props> = (props) => {
   const posts = props.posts
   return (
     <div>
       <h2>文字列表</h2>
-      {posts.map(post => (<div key={post.id}>{post.title}</div>))}
+      {posts.map(post => (
+        <li key={post.id}>
+          <Link href={'/posts/' + post.id}>
+            <a>{post.title}</a>
+          </Link>
+        </li>
+      ))}
     </div>
   )
 }
 
-export default posts
+export default index
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getPosts()
