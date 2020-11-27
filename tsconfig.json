@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     "baseUrl": ".",
     "noImplicitAny": true,
