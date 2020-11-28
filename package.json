@@ -6,7 +6,7 @@
     "dev": "concurrently \"next dev\" \"npx babel -w ./src --out-dir dist --extensions .ts,.tsx\" ",
     "build": "next build",
     "start": "next start",
-    "serve": "node dist/index.js",
+    "serve": "node dist/seed.js",
     "typeorm:build": "npx babel -w ./src --out-dir dist --extensions \".ts,.tsx\"",
     "migration:run": "typeorm migration:run",
     "migration:revert": "typeorm migration:revert",
