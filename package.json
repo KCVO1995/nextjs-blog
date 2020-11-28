@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "serve": "node dist/index.js",
-    "babel": "npx babel ./src --out-dir dist --extensions \".ts,.tsx\""
+    "typeorm:build": "npx babel -w ./src --out-dir dist --extensions \".ts,.tsx\"",
+    "migration:run": "typeorm migration:run",
+    "migration:revert": "typeorm migration:revert"
   },
   "dependencies": {
     "@babel/cli": "^7.12.8",
