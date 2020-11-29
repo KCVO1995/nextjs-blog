@@ -5,7 +5,7 @@ var _interopRequireDefault = require("D:/studyWeb/nextjs-blog/node_modules/@babe
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CreatePost1606492686580 = void 0;
+exports.CreatePosts1606662312046 = void 0;
 
 var _regenerator = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/regenerator"));
 
@@ -17,12 +17,12 @@ var _createClass2 = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node
 
 var _typeorm = require("typeorm");
 
-var CreatePost1606492686580 = /*#__PURE__*/function () {
-  function CreatePost1606492686580() {
-    (0, _classCallCheck2["default"])(this, CreatePost1606492686580);
+var CreatePosts1606662312046 = /*#__PURE__*/function () {
+  function CreatePosts1606662312046() {
+    (0, _classCallCheck2["default"])(this, CreatePosts1606662312046);
   }
 
-  (0, _createClass2["default"])(CreatePost1606492686580, [{
+  (0, _createClass2["default"])(CreatePosts1606662312046, [{
     key: "up",
     value: function () {
       var _up = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(queryRunner) {
@@ -36,9 +36,12 @@ var CreatePost1606492686580 = /*#__PURE__*/function () {
                   columns: [{
                     name: 'id',
                     type: 'int',
-                    isGenerated: true,
                     isPrimary: true,
+                    isGenerated: true,
                     generationStrategy: 'increment'
+                  }, {
+                    name: 'author_id',
+                    type: 'int'
                   }, {
                     name: 'title',
                     type: 'varchar'
@@ -49,9 +52,6 @@ var CreatePost1606492686580 = /*#__PURE__*/function () {
                 }));
 
               case 2:
-                return _context.abrupt("return", _context.sent);
-
-              case 3:
               case "end":
                 return _context.stop();
             }
@@ -77,9 +77,6 @@ var CreatePost1606492686580 = /*#__PURE__*/function () {
                 return queryRunner.dropTable('posts');
 
               case 2:
-                return _context2.abrupt("return", _context2.sent);
-
-              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -94,7 +91,7 @@ var CreatePost1606492686580 = /*#__PURE__*/function () {
       return down;
     }()
   }]);
-  return CreatePost1606492686580;
+  return CreatePosts1606662312046;
 }();
 
-exports.CreatePost1606492686580 = CreatePost1606492686580;
+exports.CreatePosts1606662312046 = CreatePosts1606662312046;
