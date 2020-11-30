@@ -5,7 +5,7 @@ var _interopRequireDefault = require("D:/studyWeb/nextjs-blog/node_modules/@babe
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AddCreatedAtAndUpdateAt1606663403328 = void 0;
+exports.AddCreatedAtAndupdatedAt1606663403328 = void 0;
 
 var _regenerator = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/regenerator"));
 
@@ -17,12 +17,12 @@ var _createClass2 = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node
 
 var _typeorm = require("typeorm");
 
-var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
-  function AddCreatedAtAndUpdateAt1606663403328() {
-    (0, _classCallCheck2["default"])(this, AddCreatedAtAndUpdateAt1606663403328);
+var AddCreatedAtAndupdatedAt1606663403328 = /*#__PURE__*/function () {
+  function AddCreatedAtAndupdatedAt1606663403328() {
+    (0, _classCallCheck2["default"])(this, AddCreatedAtAndupdatedAt1606663403328);
   }
 
-  (0, _createClass2["default"])(AddCreatedAtAndUpdateAt1606663403328, [{
+  (0, _createClass2["default"])(AddCreatedAtAndupdatedAt1606663403328, [{
     key: "up",
     value: function () {
       var _up = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(queryRunner) {
@@ -37,7 +37,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
                   isNullable: false,
                   "default": 'now()'
                 }), new _typeorm.TableColumn({
-                  name: 'updateAt',
+                  name: 'updatedAt',
                   type: 'time',
                   isNullable: false,
                   "default": 'now()'
@@ -51,7 +51,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
                   isNullable: false,
                   "default": 'now()'
                 }), new _typeorm.TableColumn({
-                  name: 'updateAt',
+                  name: 'updatedAt',
                   type: 'time',
                   isNullable: false,
                   "default": 'now()'
@@ -65,7 +65,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
                   isNullable: false,
                   "default": 'now()'
                 }), new _typeorm.TableColumn({
-                  name: 'updateAt',
+                  name: 'updatedAt',
                   type: 'time',
                   isNullable: false,
                   "default": 'now()'
@@ -98,7 +98,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
 
               case 2:
                 _context2.next = 4;
-                return queryRunner.dropColumn('users', 'updateAt');
+                return queryRunner.dropColumn('users', 'updatedAt');
 
               case 4:
                 _context2.next = 6;
@@ -106,7 +106,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
 
               case 6:
                 _context2.next = 8;
-                return queryRunner.dropColumn('posts', 'updateAt');
+                return queryRunner.dropColumn('posts', 'updatedAt');
 
               case 8:
                 _context2.next = 10;
@@ -114,7 +114,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
 
               case 10:
                 _context2.next = 12;
-                return queryRunner.dropColumn('comments', 'updateAt');
+                return queryRunner.dropColumn('comments', 'updatedAt');
 
               case 12:
               case "end":
@@ -131,7 +131,7 @@ var AddCreatedAtAndUpdateAt1606663403328 = /*#__PURE__*/function () {
       return down;
     }()
   }]);
-  return AddCreatedAtAndUpdateAt1606663403328;
+  return AddCreatedAtAndupdatedAt1606663403328;
 }();
 
-exports.AddCreatedAtAndUpdateAt1606663403328 = AddCreatedAtAndUpdateAt1606663403328;
+exports.AddCreatedAtAndupdatedAt1606663403328 = AddCreatedAtAndupdatedAt1606663403328;

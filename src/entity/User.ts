@@ -2,7 +2,7 @@ import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Upd
 import {Post} from './Post';
 import {Comment} from './Comment'
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('increment')
   id: number
@@ -13,9 +13,15 @@ export class User {
   @CreateDateColumn()
   createdAt: Date
   @UpdateDateColumn()
-  updateAt: Date
+  updatedAt: Date
   @OneToMany(() => Post, post => post.author)
   posts: Post[]
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[]
+
+  constructor(username: string, passwordDigest: string) {
+    this.username = username
+    this.passwordDigest = passwordDigest
+  }
+
 }

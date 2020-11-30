@@ -14,7 +14,7 @@ export class RenameColumns1606665169191 implements MigrationInterface {
     await queryRunner.renameColumn('users', 'passwordDigest', 'password_digest')
     await queryRunner.renameColumn('posts', 'authorId', 'author_id')
     await queryRunner.renameColumn('comments', 'userId', 'user_id')
-    await queryRunner.renameColumn('users', 'postId', 'post_id')
+    await queryRunner.renameColumn('comments', 'postId', 'post_id')
   }
 
 }

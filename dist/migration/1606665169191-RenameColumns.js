@@ -78,7 +78,7 @@ var RenameColumns1606665169191 = /*#__PURE__*/function () {
 
               case 6:
                 _context2.next = 8;
-                return queryRunner.renameColumn('users', 'postId', 'post_id');
+                return queryRunner.renameColumn('comments', 'postId', 'post_id');
 
               case 8:
               case "end":
