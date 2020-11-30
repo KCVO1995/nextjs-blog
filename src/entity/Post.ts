@@ -26,4 +26,10 @@ export class Post {
   author: User;
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[]
+
+  constructor(title: string, content: string, author: User) {
+    this.title = title
+    this.content = content
+    this.author = author
+  }
 }

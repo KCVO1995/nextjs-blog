@@ -33,7 +33,7 @@ var Comment = (_dec = (0, _typeorm.Entity)('comments'), _dec2 = (0, _typeorm.Pri
   return _Post.Post;
 }, function (post) {
   return post.comments;
-}), _dec(_class = (_class2 = (_temp = function Comment() {
+}), _dec(_class = (_class2 = (_temp = function Comment(content, user, post) {
   (0, _classCallCheck2["default"])(this, Comment);
   (0, _initializerDefineProperty2["default"])(this, "id", _descriptor, this);
   (0, _initializerDefineProperty2["default"])(this, "content", _descriptor2, this);
@@ -41,6 +41,9 @@ var Comment = (_dec = (0, _typeorm.Entity)('comments'), _dec2 = (0, _typeorm.Pri
   (0, _initializerDefineProperty2["default"])(this, "updatedAt", _descriptor4, this);
   (0, _initializerDefineProperty2["default"])(this, "user", _descriptor5, this);
   (0, _initializerDefineProperty2["default"])(this, "post", _descriptor6, this);
+  this.content = content;
+  this.user = user;
+  this.post = post;
 }, _temp), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
   configurable: true,
   enumerable: true,

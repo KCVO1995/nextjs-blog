@@ -33,7 +33,7 @@ var Post = (_dec = (0, _typeorm.Entity)('posts'), _dec2 = (0, _typeorm.PrimaryGe
   return _Comment.Comment;
 }, function (comment) {
   return comment.post;
-}), _dec(_class = (_class2 = (_temp = function Post() {
+}), _dec(_class = (_class2 = (_temp = function Post(title, content, author) {
   (0, _classCallCheck2["default"])(this, Post);
   (0, _initializerDefineProperty2["default"])(this, "id", _descriptor, this);
   (0, _initializerDefineProperty2["default"])(this, "title", _descriptor2, this);
@@ -42,6 +42,9 @@ var Post = (_dec = (0, _typeorm.Entity)('posts'), _dec2 = (0, _typeorm.PrimaryGe
   (0, _initializerDefineProperty2["default"])(this, "updatedAt", _descriptor5, this);
   (0, _initializerDefineProperty2["default"])(this, "author", _descriptor6, this);
   (0, _initializerDefineProperty2["default"])(this, "comments", _descriptor7, this);
+  this.title = title;
+  this.content = content;
+  this.author = author;
 }, _temp), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
   configurable: true,
   enumerable: true,

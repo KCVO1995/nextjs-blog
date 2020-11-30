@@ -16,4 +16,11 @@ export class Comment {
   user: User;
   @ManyToOne(() => Post, post => post.comments)
   post: Post;
+
+  constructor(content: string, user: User, post: Post) {
+    this.content = content
+    this.user = user
+    this.post = post
+  }
+
 }
