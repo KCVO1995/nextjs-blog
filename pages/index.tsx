@@ -2,6 +2,7 @@ import React from 'react';
 import {GetServerSideProps, NextPage} from 'next';
 import { UAParser } from 'ua-parser-js';
 import getDatabaseConnection from '../lib/getDatabaseConnection';
+import {Post} from '../src/entity/Post';
 
 type Browser = {
   name: string
@@ -11,14 +12,22 @@ type Browser = {
 
 type Props = {
   browser: Browser
+  posts: Post[]
 }
 
 
 
 const Index: NextPage <Props> = (props) => {
-  const {browser} = props
+  const {posts} = props
   return (
-    <div>你的浏览器是1111: {browser.name}</div>
+    <div>
+      {
+        posts.map(post => {
+          console.log('post', post)
+          return (<li>{post.title}-{post.createdAt}</li>)
+        })
+      }
+    </div>
   )
 }
 
@@ -28,10 +37,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const ua = context.req.headers['user-agent']
   const result = new UAParser(ua).getResult()
   const connection = await getDatabaseConnection()
-  console.log(connection, 'connection')
-  console.log(result, 'result')
+  const posts = await connection.manager.find(Post)
   return {
     props: {
+      posts: JSON.parse(JSON.stringify(posts)),
       browser: result.browser
     }
   }

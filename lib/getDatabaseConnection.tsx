@@ -2,19 +2,14 @@ import config from '../ormconfig.json';
 import {Post} from '../src/entity/Post';
 import {Comment} from '../src/entity/Comment';
 import {User} from '../src/entity/User';
-import {getConnectionManager} from 'typeorm';
+import {getConnectionManager, createConnection} from 'typeorm';
+import 'reflect-metadata';
 
-const getDatabaseConnection = () => {
+const getDatabaseConnection = async () => {
   const manage = getConnectionManager()
-  if (manage.has('default') && manage.get('default').isConnected) {
-    return manage.get('default')
-  } else {
-    // @ts-ignore
-    return manage.create({
-      ...config,
-      entities: [Post, Comment, User]
-    })
-  }
+  if (manage.has('default')) await manage.get('default').close()
+  // @ts-ignore
+  return createConnection({ ...config, entities: [Post, Comment, User] });
 }
 
 // @ts-ignore
