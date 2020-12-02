@@ -1,17 +1,19 @@
 import React from 'react';
-import {GetStaticPaths, GetStaticProps, NextPage} from 'next';
-import {getPost, getPostIds} from '../../lib/posts';
+import {GetServerSideProps, NextPage} from 'next';
+import getDatabaseConnection from '../../lib/getDatabaseConnection';
+import {Post} from '../../src/entity/Post';
 
 type Props = {
   post: Post
 }
 
 const post: NextPage<Props> = props => {
-  const {title, date, content} = props.post
+  const {title, createdAt, updatedAt, content} = props.post
   return (
     <div>
       <h2>{title}</h2>
-      <p>日期：{new Date(date).toDateString()}</p>
+      <p>发布于：{new Date(createdAt).toDateString()}</p>
+      <p>编辑于：{new Date(updatedAt).toDateString()}</p>
       <article>{content}</article>
     </div>
   )
@@ -19,17 +21,12 @@ const post: NextPage<Props> = props => {
 
 export default post
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const ids = await getPostIds()
-  const paths = ids.map(id => '/posts/' + encodeURIComponent(id))
-  return {paths, fallback: false}
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (params && params.id) {
-    const post = await getPost(params.id.toString())
-    return {
-      props: { post: JSON.parse(JSON.stringify(post)) }
+export const getServerSideProps: GetServerSideProps = async context => {
+  const connection = await getDatabaseConnection()
+  const post = await connection.manager.findOne(Post, context.params.id.toString())
+  return {
+    props: {
+      post: JSON.parse(JSON.stringify(post)),
     }
-  } else return { props: {} }
+  }
 }
