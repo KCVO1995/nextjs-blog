@@ -5,15 +5,17 @@ import md5 from 'md5';
 
 const Users: NextApiHandler = async (req, res) => {
   const {username, password, passwordConfirmation} = req.body
-  console.log(username, 'username')
-  console.log(password, 'password')
-  console.log(passwordConfirmation, 'passwordConfirmation')
   const errors = {username: [] as string[], password: [] as string[], passwordConfirmation: [] as string[]}
+  const connection = await getDatabaseConnection()
   res.setHeader('Content-Type', 'application/json')
+
   if (!username.trim()) errors.username.push('用户名不能为空')
   if (!/[A-Za-z0-9]/.test(username.trim())) errors.username.push('用户名格式错误')
   if (username.length >= 20) errors.username.push('用户名太长')
   if (username.length < 2) errors.username.push('用户名太短')
+  const isDuplicateName = connection.manager.find(User, {username})
+  if (isDuplicateName) errors.username.push('用户名已存在')
+
   if (!password) errors.passwordConfirmation.push('密码不能为空')
   if (password.length < 6) errors.password.push('密码最少为6个字符')
   if (/[a-zA-Z][0-9]/g.test(username.trim())) errors.password.push('密码格式错误，需要有数组和字母组成')
@@ -24,7 +26,6 @@ const Users: NextApiHandler = async (req, res) => {
     res.statusCode = 422
     res.write(JSON.stringify(errors))
   } else {
-    const connection = await getDatabaseConnection()
     const user = new User(username, md5(password))
     await connection.manager.save(user)
     res.statusCode = 200
