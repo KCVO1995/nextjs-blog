@@ -28,13 +28,6 @@ const signUp: NextPage = () => {
   }, [formData])
   return (
     <>
-      <div>
-        { JSON.stringify(formData) }
-      </div>
-      <hr/>
-      <div>
-        { JSON.stringify(errorData) }
-      </div>
      <h2>用户注册</h2>
       <form onSubmit={submit}>
         <div>
@@ -42,7 +35,7 @@ const signUp: NextPage = () => {
             <span>用户名</span>
             <input type="text" value={formData.username} onChange={e => setSignUpData('username', e.target.value)}/>
           </label>
-          <span>{errorData.username.join(',')}</span>
+          <span>{errorData.username.join(', ')}</span>
         </div>
         <div>
           <label>
