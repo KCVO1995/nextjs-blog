@@ -1,4 +1,5 @@
 import {
+  BeforeInsert,
   Column,
   Connection,
   CreateDateColumn,
@@ -9,7 +10,8 @@ import {
 } from 'typeorm';
 import {Post} from './Post';
 import {Comment} from './Comment'
-import getDatabaseConnection from '../../lib/getDatabaseConnection';
+import _ from 'lodash'
+import md5 from 'md5';
 
 @Entity('users')
 export class User {
@@ -50,6 +52,16 @@ export class User {
   hasError() {
     const hasError = Object.values(this.errors).find(value => value.length > 0)
     return hasError && hasError.length > 0
+  }
+
+  toJSON() {
+    console.log('11', this)
+    return _.omit(this, ['password', 'passwordConfirmation', 'passwordDigest', 'connection', 'errors'])
+  }
+
+  @BeforeInsert()
+  generatePasswordDigest() {
+    this.passwordDigest = md5(this.password)
   }
 
   constructor(username: string, passwordDigest: string) {

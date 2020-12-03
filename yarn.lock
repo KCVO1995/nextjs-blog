@@ -378,6 +378,11 @@
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
   integrity sha1-9MfsQ+gbMZqYFRFQMXCfJph4kfA=
 
+"@types/lodash@^4.14.165":
+  version "4.14.165"
+  resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.165.tgz?cache=0&sync_timestamp=1604600854786&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.165.tgz#74d55d947452e2de0742bad65270433b63a8c30f"
+  integrity sha1-dNVdlHRS4t4HQrrWUnBDO2Ooww8=
+
 "@types/md5@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@types/md5/download/@types/md5-2.2.1.tgz?cache=0&sync_timestamp=1605054726371&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fmd5%2Fdownload%2F%40types%2Fmd5-2.2.1.tgz#0e2d65d8f6cc91aafbc9be5a4c08fee9250406ce"
@@ -2715,7 +2720,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.npm.taobao.org/lodash.sortby/download/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.19:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
   version "4.17.20"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.20.tgz?cache=0&sync_timestamp=1597336125847&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha1-tEqbYpe8tpjxxRo1RaKzs2jVnFI=

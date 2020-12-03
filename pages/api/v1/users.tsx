@@ -1,14 +1,12 @@
 import {NextApiHandler} from 'next';
 import getDatabaseConnection from '../../../lib/getDatabaseConnection';
 import {User} from '../../../src/entity/User';
-import md5 from 'md5';
 
 const Users: NextApiHandler = async (req, res) => {
   const {username, password, passwordConfirmation} = req.body
   const connection = await getDatabaseConnection()
   res.setHeader('Content-Type', 'application/json')
-  const user = new User(username.trim(), md5(password))
-  user.password = password
+  const user = new User(username.trim(), password)
   user.passwordConfirmation = passwordConfirmation
   user.connection = connection
   await user.validate()
@@ -19,7 +17,7 @@ const Users: NextApiHandler = async (req, res) => {
   } else {
     await connection.manager.save(user)
     res.statusCode = 200
-    res.write(JSON.stringify({username, status: 'done'}))
+    res.write(JSON.stringify(user))
   }
   res.end()
 }
