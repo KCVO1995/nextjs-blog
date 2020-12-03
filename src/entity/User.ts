@@ -66,7 +66,7 @@ export class User {
 
   constructor(username: string, passwordDigest: string) {
     this.username = username
-    this.passwordDigest = passwordDigest
+    this.password = passwordDigest
   }
 
 }
