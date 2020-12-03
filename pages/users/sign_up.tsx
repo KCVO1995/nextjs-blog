@@ -19,10 +19,11 @@ const signUp: NextPage = () => {
   }
   const submit = useCallback(e => {
     e.preventDefault()
-    axios.post('api/v1/users', formData).then(() => {
+    axios.post('/api/v1/users', formData).then(() => {
       alert('成功')
     }, (e: AxiosError) => {
       const {response: {data}} = e
+      console.log(data, 'data error')
       setErrorData(data)
     })
   }, [formData])
@@ -35,21 +36,21 @@ const signUp: NextPage = () => {
             <span>用户名</span>
             <input type="text" value={formData.username} onChange={e => setSignUpData('username', e.target.value)}/>
           </label>
-          <span>{errorData.username.join(', ')}</span>
+          <span>{errorData.username?.join(', ')}</span>
         </div>
         <div>
           <label>
             <span>密码</span>
             <input type="password" value={formData.password} onChange={e => setSignUpData('password', e.target.value)}/>
           </label>
-          <span>{errorData.password.join(',')}</span>
+          <span>{errorData.password?.join(',')}</span>
         </div>
         <div>
           <label>
             <span>验证密码</span>
             <input type="password" value={formData.passwordConfirmation} onChange={e => setSignUpData('passwordConfirmation', e.target.value)}/>
           </label>
-          <span>{errorData.passwordConfirmation.join(',')}</span>
+          <span>{errorData.passwordConfirmation?.join(',')}</span>
         </div>
         <button type='submit'>提交</button>
       </form>
