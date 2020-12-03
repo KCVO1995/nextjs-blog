@@ -1,5 +1,6 @@
 import {
   Column,
+  Connection,
   CreateDateColumn,
   Entity,
   OneToMany,
@@ -28,14 +29,15 @@ export class User {
   comments: Comment[]
 
   errors = {username: [] as string[], password: [] as string[], passwordConfirmation: [] as string[]}
-  password:string = ''
-  passwordConfirmation:string = ''
+  password = ''
+  passwordConfirmation = ''
+  connection: Connection = null
 
   async validate() {
     if (!this.username.trim()) this.errors.username.push('用户名不能为空')
     if (this.username.length >= 20) this.errors.username.push('用户名太长')
     if (this.username.length < 2) this.errors.username.push('用户名太短')
-    const isDuplicateName = await (await getDatabaseConnection()).manager.find(User, {username: this.username})
+    const isDuplicateName = await this.connection.manager.find(User, {username: this.username})
     if (isDuplicateName.length > 0) this.errors.username.push('用户名已存在')
 
     if (!this.password) this.errors.passwordConfirmation.push('密码不能为空')

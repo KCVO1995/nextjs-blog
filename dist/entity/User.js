@@ -29,8 +29,6 @@ var _Post = require("./Post");
 
 var _Comment = require("./Comment");
 
-var _getDatabaseConnection = _interopRequireDefault(require("../../lib/getDatabaseConnection"));
-
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _temp;
 
 var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)('increment'), _dec3 = (0, _typeorm.Column)('varchar'), _dec4 = (0, _typeorm.Column)('varchar'), _dec5 = (0, _typeorm.CreateDateColumn)(), _dec6 = (0, _typeorm.UpdateDateColumn)(), _dec7 = (0, _typeorm.OneToMany)(function () {
@@ -55,15 +53,11 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 if (this.username.length >= 20) this.errors.username.push('用户名太长');
                 if (this.username.length < 2) this.errors.username.push('用户名太短');
                 _context.next = 5;
-                return (0, _getDatabaseConnection["default"])();
-
-              case 5:
-                _context.next = 7;
-                return _context.sent.manager.find(User, {
+                return this.connection.manager.find(User, {
                   username: this.username
                 });
 
-              case 7:
+              case 5:
                 isDuplicateName = _context.sent;
                 if (isDuplicateName.length > 0) this.errors.username.push('用户名已存在');
                 if (!this.password) this.errors.passwordConfirmation.push('密码不能为空');
@@ -72,7 +66,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 if (this.password !== this.passwordConfirmation) this.errors.passwordConfirmation.push('密码不匹配');
                 return _context.abrupt("return", this.errors);
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -112,6 +106,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
     });
     (0, _defineProperty2["default"])(this, "password", '');
     (0, _defineProperty2["default"])(this, "passwordConfirmation", '');
+    (0, _defineProperty2["default"])(this, "connection", null);
     this.username = username;
     this.passwordDigest = passwordDigest;
   }
