@@ -19,7 +19,7 @@ const signUp: NextPage = () => {
   const submit = useCallback(e => {
     e.preventDefault()
     axios.post('/api/v1/sessions', formData).then(() => {
-      alert('成功')
+      alert('登录成功')
     }, (e: AxiosError) => {
       const {response: {data}} = e
       setErrorData(data)
