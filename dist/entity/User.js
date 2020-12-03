@@ -123,7 +123,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
     (0, _defineProperty2["default"])(this, "passwordConfirmation", '');
     (0, _defineProperty2["default"])(this, "connection", null);
     this.username = username;
-    this.passwordDigest = passwordDigest;
+    this.password = passwordDigest;
   }
 
   return User;
