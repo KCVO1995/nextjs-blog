@@ -12,5 +12,4 @@ const getDatabaseConnection = async () => {
   return createConnection({ ...config, entities: [Post, Comment, User] });
 }
 
-// @ts-ignore
 export default getDatabaseConnection
