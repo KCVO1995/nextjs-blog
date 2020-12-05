@@ -4,7 +4,7 @@ import {GetServerSideProps, NextApiHandler} from 'next';
 
 export function withSession(handler: NextApiHandler | GetServerSideProps) {
   return withIronSession(handler, {
-    password: 'bb519c4f-3183-4264-809e-9d95fae2e38f', // 加密的密钥
+    password: process.env.SECRET, // 加密的密钥
     cookieName: 'next_blog',
     cookieOptions: {
       secure: false
