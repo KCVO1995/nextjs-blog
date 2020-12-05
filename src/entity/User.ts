@@ -44,7 +44,7 @@ export class User {
 
     if (!this.password) this.errors.passwordConfirmation.push('密码不能为空')
     if (this.password.length < 6) this.errors.password.push('密码最少为6个字符')
-    if (!/[a-zA-Z][0-9]/g.test(this.password.trim())) this.errors.password.push('密码格式错误，需要由数组和字母组成')
+    if (!/^(?=.*?[A-za-z])(?=.*?[0-9]).{6,}$/.test(this.password.trim())) this.errors.password.push('密码格式错误，需要由数组和字母组成')
     if (this.password !== this.passwordConfirmation) this.errors.passwordConfirmation.push('密码不匹配')
     return this.errors
   }
@@ -55,7 +55,6 @@ export class User {
   }
 
   toJSON() {
-    console.log('11', this)
     return _.omit(this, ['password', 'passwordConfirmation', 'passwordDigest', 'connection', 'errors'])
   }
 
