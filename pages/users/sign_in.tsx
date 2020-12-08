@@ -3,53 +3,38 @@ import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import React, {useCallback, useState} from 'react';
 import {withSession} from '../../lib/withSession';
 import {User} from '../../src/entity/User';
-
-type SignData = {
-  username: string
-  password: string
-  [key: string]: string
-}
+import Form from '../../components/Form';
 
 const signIn: NextPage<{user: User}> = (props) => {
   const [formData, setFormData] = useState({username: '', password: ''})
   const [errorData, setErrorData] = useState({username: [], password: []})
   const setSignUpData = (key: string, value: string) => {
-    const data: SignData  = {...formData}
-    data[key] = value
-    setFormData(data)
+    setFormData({ ...formData, [key]: value })
   }
   const submit = useCallback(e => {
     e.preventDefault()
     axios.post('/api/v1/sessions', formData).then(() => {
       alert('登录成功')
+      window.location.reload()
     }, (e: AxiosError) => {
       const {response: {data}} = e
       setErrorData(data)
     })
   }, [formData])
+
   return (
     <>
      <h2>用户登录</h2>
       {
         props.user && <strong>当前登录用户：{props.user.username}</strong>
       }
-      <form onSubmit={submit}>
-        <div>
-          <label>
-            <span>用户名</span>
-            <input type="text" value={formData.username} onChange={e => setSignUpData('username', e.target.value)}/>
-          </label>
-          <span>{errorData.username?.join(', ')}</span>
-        </div>
-        <div>
-          <label>
-            <span>密码</span>
-            <input type="password" value={formData.password} onChange={e => setSignUpData('password', e.target.value)}/>
-          </label>
-          <span>{errorData.password?.join(',')}</span>
-        </div>
-        <button type='submit'>提交</button>
-      </form>
+      <Form fields={[
+        {label: '用户名', type: 'text', value: formData.username, errors: errorData.username,
+          onChange(e) { setSignUpData('username', e.target.value) }},
+        {label: '密码', type: 'password', value: formData.password, errors: errorData.password,
+          onChange(e) { setSignUpData('password', e.target.value) }
+        }
+      ]} submit={submit} button={<button type='submit'>登录</button>}/>
     </>
   )
 }
