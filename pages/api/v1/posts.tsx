@@ -1,21 +1,18 @@
 import {NextApiHandler} from 'next';
-import {getPosts, getPost} from '../../../lib/posts';
+import {Post} from '../../../src/entity/Post';
+import {withSession} from '../../../lib/withSession';
+import getDatabaseConnection from '../../../lib/getDatabaseConnection';
 
 
 const Posts: NextApiHandler = async (req, res) => {
-  const files = await getPosts()
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'application/json')
-  res.write(JSON.stringify(files))
-  res.end()
+  if (req.method === 'POST') {
+    const {title, content} = req.body
+    const user = req.session.get('currentUser')
+    const post = new Post(title, content, user)
+    const connection = await getDatabaseConnection()
+    await connection.manager.save(post)
+    res.json(post)
+  }
 }
 
-export const Post: NextApiHandler = async (req, res) => {
-  const file = await getPost(req.query.id.toString())
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'application/json')
-  res.write(JSON.stringify(file))
-  res.end()
-}
-
-export default Posts
+export default withSession(Posts)
