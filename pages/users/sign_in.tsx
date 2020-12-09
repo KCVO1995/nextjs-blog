@@ -3,6 +3,7 @@ import React from 'react';
 import {withSession} from '../../lib/withSession';
 import {User} from '../../src/entity/User';
 import {useForm} from '../../hooks/useForm';
+import queryString from 'querystring'
 
 const signIn: NextPage<{user: User}> = (props) => {
   const {form} = useForm({
@@ -16,7 +17,9 @@ const signIn: NextPage<{user: User}> = (props) => {
       url: '/api/v1/sessions',
       submitSuccess: () => {
         alert('登录成功')
-        window.location.reload()
+        const parsed = queryString.parse(location.search.substr(1))
+        if (parsed.return_url) window.location.href = parsed.return_url as string
+        else window.location.reload()
       }
     }
   })
@@ -37,7 +40,7 @@ export const getServerSideProps: GetServerSideProps =  withSession(async (contex
   const user = context.req.session.get('currentUser')
   return {
     props: {
-      user: JSON.parse(JSON.stringify(user))
+      user: JSON.parse(JSON.stringify(user || {}))
     }
   }
 })

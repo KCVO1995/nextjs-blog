@@ -38,7 +38,12 @@ export function useForm<T> (options: useFormOptions<T>) {
       submit.submitSuccess()
     }, (e: AxiosError) => {
       const {response: {data}} = e
-      setFormErrors(data)
+      if (e.response.status === 422) {
+        setFormErrors(data)
+      } else if (e.response.status === 401) {
+        alert('请登录')
+        window.location.href = `/users/sign_in?return_url=${encodeURIComponent(window.location.href)}`
+      }
     })
   }, [formData, submit])
 
