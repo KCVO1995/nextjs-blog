@@ -1,4 +1,3 @@
-import axios, {AxiosError} from 'axios';
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import React from 'react';
 import {withSession} from '../../lib/withSession';
@@ -6,25 +5,20 @@ import {User} from '../../src/entity/User';
 import {useForm} from '../../hooks/useForm';
 
 const signIn: NextPage<{user: User}> = (props) => {
-  const submit = (formData: typeof initFormData) => {
-    axios.post('/api/v1/sessions', formData).then(() => {
-      alert('登录成功')
-      window.location.reload()
-    }, (e: AxiosError) => {
-      const {response: {data}} = e
-      setFormErrors(data)
-    })
-  }
-
-  const initFormData = {username: '', password: ''}
-  const {form, setFormErrors} = useForm({
-    initFormData,
-    submit,
+  const {form} = useForm({
+    initFormData: {username: '', password: ''},
     button: <button type='submit'>发布</button>,
     fields: [
       {label: '用户名', type: 'text', key: 'username'},
       {label: '密码', type: 'password', key: 'password'}
-    ]
+    ],
+    submit: {
+      url: '/api/v1/sessions',
+      submitSuccess: () => {
+        alert('登录成功')
+        window.location.reload()
+      }
+    }
   })
 
   return (
