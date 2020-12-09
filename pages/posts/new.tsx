@@ -1,8 +1,10 @@
 import {NextPage} from 'next';
 import React from 'react';
 import {useForm} from '../../hooks/useForm';
+import {useRouter} from 'next/router';
 
 const New: NextPage = () => {
+  const router = useRouter()
   const {form} = useForm({
     initFormData: {title: '', content: ''},
     button: <button type='submit'>发布</button>,
@@ -14,6 +16,7 @@ const New: NextPage = () => {
       url: '/api/v1/posts',
       submitSuccess: () => {
         alert('发布成功')
+        router.push('/posts').then()
       }
     }
   })

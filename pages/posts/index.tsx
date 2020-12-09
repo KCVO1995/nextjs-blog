@@ -1,34 +1,39 @@
-import {GetStaticProps, NextPage} from 'next';
 import React from 'react';
-import {getPosts} from '../../lib/posts';
+import {GetServerSideProps, NextPage} from 'next';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
+import {Post} from 'src/entity/Post';
 import Link from 'next/link';
 
 type Props = {
   posts: Post[]
 }
 
-const index: NextPage<Props> = (props) => {
-  const posts = props.posts
+const PostsIndex: NextPage <Props> = (props) => {
+  const {posts} = props
   return (
     <div>
       <h2>文字列表</h2>
-      {posts.map(post => (
-        <li key={post.id}>
-          <Link href={'/posts/' + post.id}>
-            <a>{post.title}</a>
+      {
+        posts.map(post =>
+          <Link key={post.id} href={'/posts/' + post.id}>
+            <a>
+              <li>{post.title}------创建于{new Date(post.createdAt).toDateString()}</li>
+            </a>
           </Link>
-        </li>
-      ))}
+        )
+      }
     </div>
   )
 }
 
-export default index
+export default PostsIndex
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getPosts()
+export const getServerSideProps: GetServerSideProps = async () => {
+  const connection = await getDatabaseConnection()
+  const posts = await connection.manager.find(Post)
   return {
-    props: {posts: JSON.parse(JSON.stringify(posts))} // will be passed to the page component as props
+    props: {
+      posts: JSON.parse(JSON.stringify(posts)),
+    }
   }
 }
-
