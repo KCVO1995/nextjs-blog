@@ -6,12 +6,14 @@ import Link from 'next/link';
 
 type Props = {
   posts: Post[]
+  pathname: string
   count: number
   page: number
+  totalPage: number
 }
 
 const PostsIndex: NextPage <Props> = (props) => {
-  const {posts, count, page} = props
+  const {posts, count, page, totalPage, pathname} = props
   return (
     <div>
       <h2>文字列表 {count}</h2>
@@ -25,12 +27,12 @@ const PostsIndex: NextPage <Props> = (props) => {
         )
       }
       <footer>
-        <span>第 {page} 页，</span>
+        <span>第 {page}/{totalPage} 页，</span>
         <span>总 {count} 篇</span>
         <div>
-          <Link href={'?page=' + (page - 1)}><a>上一页</a></Link>
+          { page > 1 && <Link href={pathname + '?page=' + (page - 1)}><a>上一页</a></Link> }
           /
-          <Link href={'?page=' + (page + 1)}><a>下一页</a></Link>
+          { page < totalPage && <Link href={pathname + '?page=' + (page + 1)}><a>下一页</a></Link> }
         </div>
       </footer>
     </div>
@@ -42,14 +44,18 @@ export default PostsIndex
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const connection = await getDatabaseConnection()
   const page = context.query.page && parseInt(context.query.page.toString()) || 1
-  console.log(page, 'page')
   const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 2
   const [posts, count] = await connection.manager.findAndCount('Post', {skip: (page - 1) * pageSize, take: pageSize})
+  const url = context.resolvedUrl
+  const index = url.indexOf('?')
+  const pathname = index < 0  ? url : url.substr(0, index)
   return {
     props: {
       posts: JSON.parse(JSON.stringify(posts)),
+      pathname,
       count,
-      page
+      page,
+      totalPage: Math.ceil(count / pageSize)
     }
   }
 }
