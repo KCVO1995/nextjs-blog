@@ -3,6 +3,7 @@ import {GetServerSideProps, NextPage} from 'next';
 import getDatabaseConnection from 'lib/getDatabaseConnection';
 import {Post} from 'src/entity/Post';
 import Link from 'next/link';
+import {usePager} from '../../hooks/usePager';
 
 type Props = {
   posts: Post[]
@@ -14,6 +15,7 @@ type Props = {
 
 const PostsIndex: NextPage <Props> = (props) => {
   const {posts, count, page, totalPage, pathname} = props
+  const {pager} = usePager({page, totalPage, pathname})
   return (
     <div>
       <h2>文字列表 {count}</h2>
@@ -27,13 +29,7 @@ const PostsIndex: NextPage <Props> = (props) => {
         )
       }
       <footer>
-        <span>第 {page}/{totalPage} 页，</span>
-        <span>总 {count} 篇</span>
-        <div>
-          { page > 1 && <Link href={pathname + '?page=' + (page - 1)}><a>上一页</a></Link> }
-          /
-          { page < totalPage && <Link href={pathname + '?page=' + (page + 1)}><a>下一页</a></Link> }
-        </div>
+        {pager}
       </footer>
     </div>
   )
@@ -44,7 +40,7 @@ export default PostsIndex
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const connection = await getDatabaseConnection()
   const page = context.query.page && parseInt(context.query.page.toString()) || 1
-  const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 2
+  const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 1
   const [posts, count] = await connection.manager.findAndCount('Post', {skip: (page - 1) * pageSize, take: pageSize})
   const url = context.resolvedUrl
   const index = url.indexOf('?')
