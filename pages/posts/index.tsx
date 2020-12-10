@@ -40,7 +40,7 @@ export default PostsIndex
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const connection = await getDatabaseConnection()
   const page = context.query.page && parseInt(context.query.page.toString()) || 1
-  const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 1
+  const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 10
   const [posts, count] = await connection.manager.findAndCount('Post', {skip: (page - 1) * pageSize, take: pageSize})
   const url = context.resolvedUrl
   const index = url.indexOf('?')

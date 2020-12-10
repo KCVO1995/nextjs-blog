@@ -6,7 +6,7 @@ type Options = {
   page: number
   totalPage: number
   pathname: string
-  urlMaker: (n: number) => string
+  urlMaker?: (n: number) => string
 }
 
 
