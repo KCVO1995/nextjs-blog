@@ -9,7 +9,11 @@ const getDatabaseConnection = async () => {
   const manage = getConnectionManager()
   if (manage.has('default')) await manage.get('default').close()
   // @ts-ignore
-  return createConnection({ ...config, entities: [Post, Comment, User] });
+  return createConnection({
+    ...config,
+    database: process.env.NODE_ENV === 'production' ? 'blog_production' : 'blog_development',
+    entities: [Post, Comment, User]
+  });
 }
 
 export default getDatabaseConnection
