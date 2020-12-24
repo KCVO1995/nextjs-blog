@@ -3862,6 +3862,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-canvas-nest@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/react-canvas-nest/download/react-canvas-nest-1.1.1.tgz#e53687ad725a2131101276b565b144dde6863015"
+  integrity sha1-5TaHrXJaITEQEna1ZbFE3eaGMBU=
+
 react-dom@16.13.1:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.13.1.tgz?cache=0&sync_timestamp=1603367590403&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dom%2Fdownload%2Freact-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"

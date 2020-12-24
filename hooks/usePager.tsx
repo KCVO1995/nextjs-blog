@@ -23,7 +23,7 @@ export function usePager(options: Options) {
   const pagerNumbers = _.uniq(numbers).filter(item => item > 0 && item <= totalPage)
     .reduce((result, n) => n - (result[result.length - 1] || 0) === 1 ? result.concat(n) : result.concat(-1, n), [])
   const pager = (
-    <div>
+    <div className='pager'>
       <div className='container-pager'>
         {page > 1 && <Link href={urlMaker(page - 1)}><a>&lt;</a></Link>}
         {pagerNumbers.map((n, index) => n === -1 ?
@@ -34,12 +34,40 @@ export function usePager(options: Options) {
         )}
         {page < totalPage && <Link href={urlMaker(page + 1)}><a>&gt;</a></Link>}
       </div>
-      <span>第 {page}/{totalPage} 页</span>
+      {/*<span>第 {page}/{totalPage} 页</span>*/}
       <style jsx>{`
-      .container-pager { margin: 0 -8px }
-      .container-pager > a, .container-pager span { margin: 0 8px }
-      .container-pager > a {text-decoration: none}
-      .current-page { color: red }
+        .pager {
+          display: flex;
+        }
+
+        .pager span {
+          margin-left: 20px;
+        }
+
+        .container-pager {
+          margin: 0 -8px
+        }
+
+        .container-pager > a, .container-pager span {
+          cursor: pointer;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: rgb(195,225,225);
+          color: white;
+          margin: 0 8px
+        }
+
+        .container-pager > a {
+          text-decoration: none
+        }
+
+        .current-page {
+          color: red
+        }
       `}
       </style>
     </div>

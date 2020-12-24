@@ -22,6 +22,7 @@
     "md5": "^2.3.0",
     "next": "^10.0.0",
     "react": "16.13.1",
+    "react-canvas-nest": "^1.1.1",
     "react-dom": "16.13.1",
     "ua-parser-js": "^0.7.22"
   },
