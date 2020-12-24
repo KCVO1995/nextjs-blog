@@ -8,6 +8,7 @@ import SwitchUser from '../components/switchUser'
 import getDatabaseConnection from '../lib/getDatabaseConnection';
 import {usePager} from '../hooks/usePager';
 import {useRouter} from 'next/router';
+import Link from 'next/link';
 
 type Props = {
   user: User
@@ -43,10 +44,11 @@ const Index: NextPage<Props> = (props) => {
         <header>
           <div className='container'>
             <h1>Welcome {user.username}</h1>
+            <nav><Link href={'/posts/new'}><a>新增文章</a></Link></nav>
           </div>
         </header>
         <main className='list'>
-          {
+          { // TODO 列表是反向的
             posts.map(post =>
               <article key={post.id} onClick={() => router.push(`/posts/${post.id}`)} className='item'>
                 <div className='content'>
@@ -107,7 +109,7 @@ const Index: NextPage<Props> = (props) => {
           font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif, 'hei';
         }
 
-        .global header .container .nav,
+        .global header .container nav,
         .global header .container h1 {
           opacity: 0;
           animation: show 700ms 600ms forwards;

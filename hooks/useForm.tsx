@@ -4,6 +4,7 @@ import axios, {AxiosError} from 'axios';
 type Fields<T> = {
   label: string
   type: 'text' | 'password' | 'textarea'
+  placeholder?: string
   key: keyof T
 }[]
 
@@ -48,6 +49,7 @@ export function useForm<T>(options: useFormOptions<T>) {
     })
   }, [formData, submit])
 
+  // @ts-ignore
   const form = (
     <>
       <form onSubmit={_submit}>
@@ -57,12 +59,15 @@ export function useForm<T>(options: useFormOptions<T>) {
               <div className={'block-' + className} key={index}>
                 <label>{field.label}</label>
                 <textarea value={formData[field.key].toString()}
+                          placeholder={field.placeholder}
                           onChange={e => setSignUpData(field.key, e.target.value)}/>
                 <span>{formErrors[field.key].join(', ')}</span>
               </div> :
               <div className={'block-' + className} key={index}>
                 <label>{field.label}</label>
                 <input type={field.type} value={formData[field.key].toString()}
+                       autoFocus={true}
+                       placeholder={field.placeholder}
                        onChange={e => setSignUpData(field.key, e.target.value)}/>
                 <span>{formErrors[field.key].join(', ')}</span>
               </div>
@@ -71,11 +76,49 @@ export function useForm<T>(options: useFormOptions<T>) {
         {button}
       </form>
       <style jsx>{`
+        .block-post {
+          margin-bottom: 30px;
+
+        }
+
+        .block-post label {
+          display: none;
+        }
+
+        .block-post input {
+          border: none;
+          border-bottom: 1px solid #399c9c;
+          height: 50px;
+          font-size: 32px;
+          width: 100%;
+          padding-bottom: 10px;
+          padding-left: 15px;
+        }
+
+        .block-post textarea {
+          border-radius: 8px;
+          padding: 15px;
+          width: 100%;
+          height: 70vh;
+          font-size: 15px;
+          resize: none;
+          border: 1px solid #399c9c;
+        }
+
+        @media (max-width: 500px) {
+          .block-post textarea {
+          }
+          .block-post input {
+            height: 40px;
+            font-size: 24px;
+          }
+        }
+
         .block-sign-up,
         .block-sign-in {
           color: #399c9c;
           margin-bottom: 20px;
-          position:relative;
+          position: relative;
         }
 
         .block-sign-up label,
@@ -90,7 +133,7 @@ export function useForm<T>(options: useFormOptions<T>) {
           border-bottom: 1px solid #399c9c;
           color: #333;
         }
-        
+
         .block-sign-up span,
         .block-sign-in span {
           position: absolute;
