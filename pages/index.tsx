@@ -1,7 +1,5 @@
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import React, {useEffect} from 'react';
-// @ts-ignore
-import ReactCanvasNest from 'react-canvas-nest';
 import {UAParser} from 'ua-parser-js';
 import {withSession} from '../lib/withSession';
 import {User} from '../src/entity/User';
@@ -23,18 +21,7 @@ type Props = {
 const Index: NextPage<Props> = (props) => {
   const {posts, page, totalPage, pathname, user} = props
   const {pager} = usePager({page, totalPage, pathname})
-  const device = new UAParser().getDevice().type
   const router = useRouter()
-  const config = {
-    count: device === 'mobile' ? 35 : 70,
-    follow: device !== 'mobile',
-    pointColor: '195,225,225',
-    pointR: device === 'mobile' ? 6 : 10,
-    pointOpacity: 1,
-    lineColor: '195,225,225',
-    lineWidth: 3,
-    mouseDist: 30000
-  }
   const formatTime = (date: Date) => {
     let y = date.getFullYear().toString()
     let m = (date.getMonth() + 1).toString()
@@ -52,8 +39,7 @@ const Index: NextPage<Props> = (props) => {
   return (
     <>
       <div className="global">
-        <SwitchUser/>
-        <ReactCanvasNest className='canvasNest' config={config} style={{zIndex: 10}}/>
+        <SwitchUser username={user.username}/>
         <header>
           <div className='container'>
             <h1>Welcome {user.username}</h1>
@@ -153,7 +139,7 @@ const Index: NextPage<Props> = (props) => {
         }
 
         .global main article:hover {
-          box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
         }
 
         .global main article .content {
@@ -242,14 +228,6 @@ export const getServerSideProps: GetServerSideProps = withSession(async (context
   const url = context.resolvedUrl
   const index = url.indexOf('?')
   const pathname = index < 0 ? url : url.substr(0, index)
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/users/sign_in?return_url=/',
-        permanent: false,
-      },
-    }
-  }
   return {
     props: {
       user: JSON.parse(JSON.stringify(user || {})),
