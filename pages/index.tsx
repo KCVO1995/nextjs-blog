@@ -1,6 +1,5 @@
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
-import React, {useEffect} from 'react';
-import {UAParser} from 'ua-parser-js';
+import React from 'react';
 import {withSession} from '../lib/withSession';
 import {User} from '../src/entity/User';
 import {Post} from '../src/entity/Post';
@@ -8,7 +7,7 @@ import SwitchUser from '../components/switchUser'
 import getDatabaseConnection from '../lib/getDatabaseConnection';
 import {usePager} from '../hooks/usePager';
 import {useRouter} from 'next/router';
-import Link from 'next/link';
+import Header from '../components/Header';
 
 type Props = {
   user: User
@@ -41,12 +40,7 @@ const Index: NextPage<Props> = (props) => {
     <>
       <div className="global">
         <SwitchUser username={user.username}/>
-        <header>
-          <div className='container'>
-            <h1>Welcome {user.username}</h1>
-            <nav><Link href={'/posts/new'}><a>新增文章</a></Link></nav>
-          </div>
-        </header>
+        <Header navs={[{text: '新增文章', path: '/posts/new'}]} username={user.username}/>
         <main className='list'>
           { // TODO 列表是反向的
             posts.map(post =>
@@ -65,55 +59,6 @@ const Index: NextPage<Props> = (props) => {
         .global {
           min-height: 100vh;
           width: 100%;
-        }
-
-        @keyframes goHeight {
-          from {
-            height: 50px;
-          }
-          to {
-            height: 120px;
-          }
-        }
-
-        @keyframes show {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        .global header {
-          z-index: 100;
-          position: relative;
-          margin: auto 0;
-          padding-top: 130px;
-          height: 250px;
-        }
-
-        .global header .container {
-          will-change: height;
-          animation: goHeight 600ms forwards;
-          border-radius: 8px;
-          margin: 0 auto;
-          background: #399c9c;
-          padding: 0 50px;
-          color: white;
-          max-width: 768px;
-          width: 768px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif, 'hei';
-        }
-
-        .global header .container nav,
-        .global header .container h1 {
-          opacity: 0;
-          animation: show 700ms 600ms forwards;
-          font-weight: normal;
         }
 
         .global main {
@@ -170,31 +115,6 @@ const Index: NextPage<Props> = (props) => {
         }
 
         @media (max-width: 500px) {
-          @keyframes goHeight {
-            from {
-              height: 50px;
-            }
-            to {
-              height: 100px;
-            }
-          }
-          .global header {
-            padding-top: 50px;
-            height: 150px;
-          }
-
-          .global header .container {
-            width: 90vw;
-            height: 100px;
-            justify-content: center;
-            flex-direction: column;
-          }
-
-          .global header .container h1 {
-            font-size: 28px;
-            margin: 10px;
-          }
-
           .global main {
             width: 90vw;
           }
