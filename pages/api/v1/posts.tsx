@@ -16,7 +16,13 @@ const Posts: NextApiHandler = async (req, res) => {
     const post = new Post(title, content, user)
     const connection = await getDatabaseConnection()
     await connection.manager.save(post)
-    res.json(post)
+    console.log(post, 'post')
+    res.setHeader('Content-Type', 'application/json; char-set=utf-8')
+    res.status(200)
+    res.write(JSON.stringify({
+      id: post.id
+    }))
+    res.end()
   }
 }
 

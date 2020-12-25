@@ -15,10 +15,11 @@ const New: NextPage = () => {
     ],
     submit: {
       url: '/api/v1/posts',
-      submitSuccess: () => {
+      submitSuccess: (res) => {
         alert('发布成功')
-        // TODO 跳转到详情
-        router.push('/posts').then()
+        // TODO 删除
+        // TODO 编辑
+        router.push(`/posts/${res.data.id}`).then()
       }
     }
   })
