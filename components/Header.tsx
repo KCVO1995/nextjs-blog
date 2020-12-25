@@ -6,8 +6,8 @@ type nav = {
   path: string
 }
 type Props = {
-  username: string
-  navs: nav[]
+  username?: string
+  navs?: nav[]
 }
 const Header: React.FunctionComponent<Props> = props => {
   const {username, navs} = props

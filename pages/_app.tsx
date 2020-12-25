@@ -1,4 +1,5 @@
 import '../assets/style/reset.css'
+import 'github-markdown-css/github-markdown.css'
 import type {AppProps} from 'next/app'
 import {UAParser} from 'ua-parser-js';
 import React from 'react';
