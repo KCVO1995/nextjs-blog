@@ -1,20 +1,33 @@
-import {NextPage} from 'next';
+import {GetServerSideProps, NextPage} from 'next';
 import React from 'react';
 import {useForm} from '../../hooks/useForm';
 import {useRouter} from 'next/router';
+import getDatabaseConnection from '../../lib/getDatabaseConnection';
+import {Post} from '../../src/entity/Post';
+import {is} from '@babel/types';
 
-const New: NextPage = () => {
+type Props = {
+  editPost: Post
+  isEdit: boolean
+}
+const New: NextPage<Props> = (props) => {
+  const {isEdit, editPost} = props
   const router = useRouter()
+  const initFormData = {
+    title: editPost.title ? editPost.title : '',
+    content: editPost.content ? editPost.content : ''
+  }
   const {form} = useForm({
-    initFormData: {title: '', content: ''},
-    button: <button className='publish-post-button' type='submit'>发布</button>,
+    initFormData,
+    button: <button className='publish-post-button' type='submit'>{isEdit ? '编辑文章' : '发布文章'}</button>,
     className: 'post',
     fields: [
       {label: '文章标题', type: 'text', placeholder: '请输入标题', key: 'title'},
       {label: '文章内容', type: 'textarea', placeholder: '请输入内容', key: 'content'}
     ],
     submit: {
-      url: '/api/v1/posts',
+      url: isEdit ? `/api/v1/post/${editPost.id}` : '/api/v1/posts',
+      method: isEdit ? 'put' : 'post',
       submitSuccess: (res) => {
         alert('发布成功')
         router.push(`/posts/${res.data.id}`).then()
@@ -71,3 +84,21 @@ const New: NextPage = () => {
 }
 
 export default New
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  console.log(context.query)
+  const {id} = context.query
+  if (!id) {
+    return {
+      props: {isEdit: false, editPost: {}}
+    }
+  }
+  const connection = await getDatabaseConnection()
+  const post = await connection.manager.findOne(Post, id.toString())
+  return {
+    props: {
+      editPost: JSON.parse(JSON.stringify(post)),
+      isEdit: true
+    }
+  }
+}

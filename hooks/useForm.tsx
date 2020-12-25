@@ -1,5 +1,5 @@
 import React, {ReactChild, useCallback, useState} from 'react';
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosInstance, AxiosResponse} from 'axios';
 
 type Fields<T> = {
   label: string
@@ -14,6 +14,7 @@ type useFormOptions<T> = {
   className: string
   submit: {
     url: string
+    method: 'post' | 'get' | 'delete' | 'put'
     submitSuccess: (res: AxiosResponse) => void
   }
   button: ReactChild
@@ -36,7 +37,8 @@ export function useForm<T>(options: useFormOptions<T>) {
 
   const _submit = useCallback(e => {
     e.preventDefault()
-    axios.post(submit.url, formData).then((res) => {
+    const method =axios[submit.method] as AxiosInstance
+    method(submit.url, formData).then((res) => {
       submit.submitSuccess(res)
     }, (e: AxiosError) => {
       const {response: {data}} = e

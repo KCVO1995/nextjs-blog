@@ -16,6 +16,7 @@ const signUp: NextPage = () => {
     ],
     submit: {
       url: '/api/v1/users',
+      method: 'post',
       submitSuccess: () => {
         alert('成功注册')
         router.push('/users/sign_in').then()

@@ -15,11 +15,10 @@ type Props = {
 const post: NextPage<Props> = props => {
   const {title, updatedAt, content, id} = props.post
   const router =useRouter()
-  // TODO 编辑
   // TODO 404
 
-  const editPost = () => {
-    alert('编辑')
+  const editPost = (id: number) => {
+    router.push(`/posts/new?id=${id}`).then()
   }
 
   const deletePost = (id: number) => {
@@ -38,7 +37,7 @@ const post: NextPage<Props> = props => {
           <div className='time'>
             <time>{formatTime(new Date(updatedAt))}</time>
             <div className='action'>
-              <svg onClick={editPost} className='icon' aria-hidden='true'>
+              <svg onClick={editPost.bind(null, id)} className='icon' aria-hidden='true'>
                 <use xlinkHref='#icon-edit'/>
               </svg>
               <svg onClick={deletePost.bind(null, id)} className='icon' aria-hidden='true'>

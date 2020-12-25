@@ -1,7 +1,8 @@
 const formatTime = (date: Date) => {
+  // TODO 时间没有本地化
   let y = date.getFullYear().toString()
   let m = (date.getMonth() + 1).toString()
-  let d = date.getDay().toString()
+  let d = date.getDate().toString()
   let h = date.getHours().toString()
   let min = date.getMinutes().toString()
   let s = date.getSeconds().toString()

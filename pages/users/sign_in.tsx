@@ -18,6 +18,7 @@ const signIn: NextPage<{ user: User }> = (props) => {
     ],
     submit: {
       url: '/api/v1/sessions',
+      method: 'post',
       submitSuccess: () => {
         alert('登录成功')
         const parsed = queryString.parse(location.search.substr(1))
