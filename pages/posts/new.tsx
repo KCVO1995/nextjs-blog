@@ -17,8 +17,6 @@ const New: NextPage = () => {
       url: '/api/v1/posts',
       submitSuccess: (res) => {
         alert('发布成功')
-        // TODO 删除
-        // TODO 编辑
         router.push(`/posts/${res.data.id}`).then()
       }
     }
