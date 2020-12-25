@@ -29,7 +29,7 @@ const Index: NextPage<Props> = (props) => {
         <SwitchUser username={user.username}/>
         <Header navs={[{text: '新增文章', path: '/posts/new'}]} username={user.username}/>
         <main className='list'>
-          { // TODO 列表是反向的
+          {
             posts.map(post =>
               <article key={post.id} onClick={() => router.push(`/posts/${post.id}`)} className='item'>
                 <div className='content'>
@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = withSession(async (context
   const connection = await getDatabaseConnection()
   const page = context.query.page && parseInt(context.query.page.toString()) || 1
   const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 5
-  const [posts, count] = await connection.manager.findAndCount('Post', {skip: (page - 1) * pageSize, take: pageSize})
+  const [posts, count] = await connection.manager.findAndCount('Post', {skip: (page - 1) * pageSize, take: pageSize, order: {id: "DESC"}})
   const url = context.resolvedUrl
   const index = url.indexOf('?')
   const pathname = index < 0 ? url : url.substr(0, index)
