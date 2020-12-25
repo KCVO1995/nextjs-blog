@@ -15,7 +15,6 @@ type Props = {
 const post: NextPage<Props> = props => {
   const {title, updatedAt, content, id} = props.post
   const router =useRouter()
-  // TODO 404
 
   const editPost = (id: number) => {
     router.push(`/posts/new?id=${id}`).then()
@@ -26,7 +25,7 @@ const post: NextPage<Props> = props => {
       axios.delete(`/api/v1/post/${id}`).then(() => {
         alert('删除成功')
         router.push('/').then()
-      }, e => {console.log('删除失败')})
+      }, () => {console.log('删除失败')})
     }
   }
   return (
@@ -112,6 +111,12 @@ export default post
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection()
   const post = await connection.manager.findOne(Post, context.params.id.toString())
+  console.log(post, 'post')
+  if (!post) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
       post: JSON.parse(JSON.stringify(post))
