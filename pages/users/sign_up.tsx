@@ -2,6 +2,7 @@ import {NextPage} from 'next';
 import React from 'react';
 import {useRouter} from 'next/router';
 import {useForm} from '../../hooks/useForm';
+import Link from 'next/link';
 
 const signUp: NextPage = () => {
   const router = useRouter()
@@ -30,6 +31,12 @@ const signUp: NextPage = () => {
         <div className='container'>
           <h2>用户注册</h2>
           {form}
+          <span className='tip'>
+            已有账号，立即
+            <Link href={'/users/sign_in'}>
+              <a> 登录</a>
+            </Link>
+          </span>
         </div>
       </div>
       <style global jsx>{`
@@ -76,6 +83,17 @@ const signUp: NextPage = () => {
         .container h2 {
           color: #399c9c;
           margin-bottom: 20px;
+        }
+
+        .container .tip {
+          color: #bbb;
+          font-size: 14px;
+          display: block;
+          margin-top: 10px;
+        }
+
+        .container .tip a {
+          color: #399c9c
         }
       `}</style>
     </>

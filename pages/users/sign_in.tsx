@@ -6,7 +6,7 @@ import {useForm} from '../../hooks/useForm';
 import queryString from 'querystring'
 import Link from 'next/link';
 
-const signIn: NextPage<{ user: User }> = (props) => {
+const signIn: NextPage<{ user: User }> = () => {
 
   const {form} = useForm({
     initFormData: {username: '', password: ''},
@@ -23,7 +23,7 @@ const signIn: NextPage<{ user: User }> = (props) => {
         alert('登录成功')
         const parsed = queryString.parse(location.search.substr(1))
         if (parsed.return_url) window.location.href = parsed.return_url as string
-        else window.location.reload()
+        else window.location.href= '/'
       }
     }
   })
