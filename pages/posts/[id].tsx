@@ -111,7 +111,6 @@ export default post
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection()
   const post = await connection.manager.findOne(Post, context.params.id.toString())
-  console.log(post, 'post')
   if (!post) {
     return {
       notFound: true,

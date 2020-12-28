@@ -17,7 +17,7 @@ const Header: React.FunctionComponent<Props> = props => {
       <header>
         <div className='container'>
           {
-            username ? <h1>Welcome {username}</h1>
+            username ? <h1>{username}</h1>
               : <h1>Welcome</h1>
           }
           <nav>

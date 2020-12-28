@@ -20,3 +20,11 @@ psql -U blog
 CREATE DATABASE blog_development ENCODING 'UTF8' LC_COLLATE 'en_US.utf8' LC_CTYPE 'en_US.utf8';
 ```
 
+### 部署
+```
+yarn install --production=false
+yarn build
+docker build -t kcvo/node-web-app .
+docker run --network=host  -p 3000:3000 -d kcvo/node-web-app
+```
+

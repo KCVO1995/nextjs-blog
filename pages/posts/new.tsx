@@ -86,7 +86,6 @@ const New: NextPage<Props> = (props) => {
 export default New
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  console.log(context.query)
   const {id} = context.query
   if (!id) {
     return {
