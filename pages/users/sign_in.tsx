@@ -5,6 +5,7 @@ import {User} from '../../src/entity/User';
 import {useForm} from '../../hooks/useForm';
 import queryString from 'querystring'
 import Link from 'next/link';
+import Head from 'next/head';
 
 const signIn: NextPage<{ user: User }> = () => {
 
@@ -30,6 +31,7 @@ const signIn: NextPage<{ user: User }> = () => {
 
   return (
     <>
+      <Head><title>登录</title></Head>
       <div className='global'>
         <div className='container'>
           <h2>用户登录</h2>

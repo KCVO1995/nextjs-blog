@@ -3,6 +3,7 @@ import React from 'react';
 import {useRouter} from 'next/router';
 import {useForm} from '../../hooks/useForm';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const signUp: NextPage = () => {
   const router = useRouter()
@@ -27,6 +28,7 @@ const signUp: NextPage = () => {
 
   return (
     <>
+      <Head><title>注册</title></Head>
       <div className='global'>
         <div className='container'>
           <h2>用户注册</h2>

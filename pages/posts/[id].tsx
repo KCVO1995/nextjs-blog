@@ -10,6 +10,7 @@ import {useRouter} from 'next/router';
 import {withSession} from '../../lib/withSession';
 import {User} from '../../src/entity/User';
 import SwitchUser from '../../components/switchUser';
+import Head from 'next/head';
 
 type Props = {
   post: Post
@@ -35,9 +36,10 @@ const post: NextPage<Props> = props => {
   }
   return (
     <>
+      <Head><title>文章详情页</title></Head>
       <div className='page'>
         <SwitchUser username={user.username}/>
-        <Header username='' navs={[{text: '目录', path: '/'}]}/>
+        <Header title='文章详情' navs={[{text: '目录', path: '/'}]}/>
         <article>
           <div className='time'>
             <time>{formatTime(new Date(updatedAt))}</time>

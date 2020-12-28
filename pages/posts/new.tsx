@@ -4,7 +4,7 @@ import {useForm} from '../../hooks/useForm';
 import {useRouter} from 'next/router';
 import getDatabaseConnection from '../../lib/getDatabaseConnection';
 import {Post} from '../../src/entity/Post';
-import {is} from '@babel/types';
+import Head from 'next/head';
 
 type Props = {
   editPost: Post
@@ -37,6 +37,7 @@ const New: NextPage<Props> = (props) => {
 
   return (
     <>
+      <Head><title>新增文章页</title></Head>
       <div className='page'>
         <div className='container'>
           {form}

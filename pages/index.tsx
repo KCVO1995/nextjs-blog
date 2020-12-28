@@ -9,6 +9,7 @@ import {usePager} from '../hooks/usePager';
 import {useRouter} from 'next/router';
 import Header from '../components/Header';
 import formatTime from '../lib/formatTime';
+import Head from 'next/head';
 
 type Props = {
   user: User
@@ -25,9 +26,10 @@ const Index: NextPage<Props> = (props) => {
   const router = useRouter()
   return (
     <>
+      <Head><title>首页</title></Head>
       <div className="global">
         <SwitchUser username={user.username}/>
-        <Header navs={[{text: '新增文章', path: '/posts/new'}]} username={user.username}/>
+        <Header navs={[{text: '新增文章', path: '/posts/new'}]} title='首页'/>
         <main className='list'>
           {
             posts.map(post =>

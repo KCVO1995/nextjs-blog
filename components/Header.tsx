@@ -6,20 +6,17 @@ type nav = {
   path: string
 }
 type Props = {
-  username?: string
+  title: string
   navs?: nav[]
 }
 // TODO welcome 做成 title
 const Header: React.FunctionComponent<Props> = props => {
-  const {username, navs} = props
+  const {title, navs} = props
   return (
     <>
       <header>
         <div className='container'>
-          {
-            username ? <h1>{username}</h1>
-              : <h1>Welcome</h1>
-          }
+          <h1>{title}</h1>
           <nav>
             {
               navs.map((item, index) => <Link key={index} href={item.path}><a>{item.text}</a></Link>)
