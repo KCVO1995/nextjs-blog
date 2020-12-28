@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import getDatabaseConnection from '../../lib/getDatabaseConnection';
 import {Post} from '../../src/entity/Post';
+import {Comment} from '../../src/entity/Comment';
 import Header from '../../components/Header';
 import formatTime from '../../lib/formatTime';
 import marked from 'marked';
@@ -15,10 +16,11 @@ import Head from 'next/head';
 type Props = {
   post: Post
   user: User
+  comments: Comment[]
 }
 
 const post: NextPage<Props> = props => {
-  const {user} = props
+  const {user, comments} = props
   const {title, updatedAt, content, id} = props.post
   const [commentText, setCommentText] = useState('')
   const router = useRouter()
@@ -68,6 +70,11 @@ const post: NextPage<Props> = props => {
         <div className='comment-container'>
           <textarea value={commentText} onChange={e => setCommentText(e.target.value)}/>
           <button onClick={postComment}>提交</button>
+          <ul>
+            {
+              comments.map(comment => <li key={comment.id}>{comment.content}</li> )
+            }
+          </ul>
         </div>
       </div>
       <style jsx>{`
@@ -142,6 +149,7 @@ export const getServerSideProps: GetServerSideProps = withSession(async (context
   const user = context.req.session.get('currentUser')
   const connection = await getDatabaseConnection()
   const post = await connection.manager.findOne(Post, context.params.id.toString())
+  const comments = await connection.manager.find(Comment, {post})
   if (!post) {
     return {
       notFound: true,
@@ -150,6 +158,7 @@ export const getServerSideProps: GetServerSideProps = withSession(async (context
   return {
     props: {
       post: JSON.parse(JSON.stringify(post)),
+      comments: JSON.parse(JSON.stringify(comments)),
       user
     }
   }
