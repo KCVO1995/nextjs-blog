@@ -1,5 +1,5 @@
 import React from 'react';
-import {GetServerSideProps, NextPage} from 'next';
+import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import getDatabaseConnection from '../../lib/getDatabaseConnection';
 import {Post} from '../../src/entity/Post';
 import Header from '../../components/Header';
@@ -7,12 +7,17 @@ import formatTime from '../../lib/formatTime';
 import marked from 'marked';
 import axios from 'axios';
 import {useRouter} from 'next/router';
+import {withSession} from '../../lib/withSession';
+import {User} from '../../src/entity/User';
+import SwitchUser from '../../components/switchUser';
 
 type Props = {
   post: Post
+  user: User
 }
 
 const post: NextPage<Props> = props => {
+  const {user} = props
   const {title, updatedAt, content, id} = props.post
   const router =useRouter()
 
@@ -31,6 +36,7 @@ const post: NextPage<Props> = props => {
   return (
     <>
       <div className='page'>
+        <SwitchUser username={user.username}/>
         <Header username='' navs={[{text: '目录', path: '/'}]}/>
         <article>
           <div className='time'>
@@ -109,7 +115,10 @@ const post: NextPage<Props> = props => {
 export default post
 // TODO 自己改自己的博客
 
-export const getServerSideProps: GetServerSideProps = async context => {
+// @ts-ignore
+export const getServerSideProps: GetServerSideProps = withSession(async (context: GetServerSidePropsContext) => {
+  // @ts-ignore
+  const user = context.req.session.get('currentUser')
   const connection = await getDatabaseConnection()
   const post = await connection.manager.findOne(Post, context.params.id.toString())
   if (!post) {
@@ -119,7 +128,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
   return {
     props: {
-      post: JSON.parse(JSON.stringify(post))
+      post: JSON.parse(JSON.stringify(post)),
+      user
     }
   }
-}
+})
