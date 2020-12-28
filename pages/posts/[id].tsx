@@ -107,6 +107,7 @@ const post: NextPage<Props> = props => {
 }
 
 export default post
+// TODO 自己改自己的博客
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection()
