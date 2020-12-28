@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {GetServerSideProps, GetServerSidePropsContext, NextPage} from 'next';
 import getDatabaseConnection from '../../lib/getDatabaseConnection';
 import {Post} from '../../src/entity/Post';
@@ -20,7 +20,8 @@ type Props = {
 const post: NextPage<Props> = props => {
   const {user} = props
   const {title, updatedAt, content, id} = props.post
-  const router =useRouter()
+  const [commentText, setCommentText] = useState('')
+  const router = useRouter()
 
   const editPost = (id: number) => {
     router.push(`/posts/new?id=${id}`).then()
@@ -31,8 +32,17 @@ const post: NextPage<Props> = props => {
       axios.delete(`/api/v1/post/${id}`).then(() => {
         alert('删除成功')
         router.push('/').then()
-      }, () => {console.log('删除失败')})
+      }, () => {
+        console.log('删除失败')
+      })
     }
+  }
+  const postComment = () => {
+    axios.post(`/api/v1/comment`, {postId: id, comment: commentText}).then(res => {
+      console.log(res)
+    }, () => {
+      console.log('删除失败')
+    })
   }
   return (
     <>
@@ -55,6 +65,10 @@ const post: NextPage<Props> = props => {
           <h1>{title}</h1>
           <div className='markdown-body' dangerouslySetInnerHTML={{__html: marked(content)}}/>
         </article>
+        <div className='comment-container'>
+          <textarea value={commentText} onChange={e => setCommentText(e.target.value)}/>
+          <button onClick={postComment}>提交</button>
+        </div>
       </div>
       <style jsx>{`
         .page {
@@ -99,6 +113,11 @@ const post: NextPage<Props> = props => {
         article h1 {
           color: #1e1e1e;
           margin-bottom: 30px;
+        }
+
+        .comment-container {
+          position: relative;
+          z-index: 200;
         }
 
         @media (max-width: 500px) {
