@@ -1,0 +1,13 @@
+server {
+    listen  80;
+    listen [::]:80;
+
+    location ~ ^/_next/static/  {
+       root    /sr/share/nginx/htm/;
+       expires 30d;     
+    }
+
+    location / {
+        proxy_pass http://0.0.0.0:3001;
+    }
+}
