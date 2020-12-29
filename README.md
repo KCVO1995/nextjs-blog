@@ -25,3 +25,8 @@ CREATE DATABASE blog_development ENCODING 'UTF8' LC_COLLATE 'en_US.utf8' LC_CTYP
 ssh lyh@wzh 'bash -s' < bin/deploy.sh 
 ```
 
+### docker 启动 nginx
+```
+docker run --network=host --name nginx-blog -d nginx
+```
+
