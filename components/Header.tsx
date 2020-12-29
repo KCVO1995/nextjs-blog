@@ -9,7 +9,6 @@ type Props = {
   title: string
   navs?: nav[]
 }
-// TODO welcome 做成 title
 const Header: React.FunctionComponent<Props> = props => {
   const {title, navs} = props
   return (
@@ -50,6 +49,7 @@ const Header: React.FunctionComponent<Props> = props => {
           margin: auto 0;
           padding-top: 130px;
           height: 250px;
+          width: 100%;
         }
 
         header .container {
