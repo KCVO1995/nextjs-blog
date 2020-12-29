@@ -15,6 +15,7 @@ RUN yarn install
 
 # Bundle app source
 COPY . .
+RUN npx babel ./src --out-dir dist --extensions .ts,.tsx
 
 EXPOSE 3000
 CMD [ "yarn", "start" ]
