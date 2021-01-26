@@ -28,7 +28,7 @@ const Index: NextPage<Props> = (props) => {
     <>
       <Head><title>首页</title></Head>
       <div className="global">
-        <SwitchUser username={user.username}/>
+        <SwitchUser username={user?.username}/>
         <Header navs={[{text: '新增文章', path: '/posts/new'}]} title='首页'/>
         <main className='list'>
           {
@@ -131,7 +131,7 @@ export default Index
 
 export const getServerSideProps: GetServerSideProps = withSession(async (context: GetServerSidePropsContext) => {
   // @ts-ignore
-  const user = context.req.session.get('currentUser')
+  const user = context.req.session.get('currentUser') || null
   const connection = await getDatabaseConnection()
   const page = context.query.page && parseInt(context.query.page.toString()) || 1
   const pageSize = context.query.pageSize && parseInt(context.query.pageSize.toString()) || 5

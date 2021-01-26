@@ -1,19 +1,19 @@
 "use strict";
 
-var _interopRequireDefault = require("/home/lyh/app/nextjs-blog/node_modules/@babel/runtime/helpers/interopRequireDefault");
+var _interopRequireDefault = require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.RenameColumns1606665169191 = void 0;
 
-var _regenerator = _interopRequireDefault(require("/home/lyh/app/nextjs-blog/node_modules/@babel/runtime/regenerator"));
+var _regenerator = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/regenerator"));
 
-var _asyncToGenerator2 = _interopRequireDefault(require("/home/lyh/app/nextjs-blog/node_modules/@babel/runtime/helpers/asyncToGenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/helpers/asyncToGenerator"));
 
-var _classCallCheck2 = _interopRequireDefault(require("/home/lyh/app/nextjs-blog/node_modules/@babel/runtime/helpers/classCallCheck"));
+var _classCallCheck2 = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/helpers/classCallCheck"));
 
-var _createClass2 = _interopRequireDefault(require("/home/lyh/app/nextjs-blog/node_modules/@babel/runtime/helpers/createClass"));
+var _createClass2 = _interopRequireDefault(require("D:/studyWeb/nextjs-blog/node_modules/@babel/runtime/helpers/createClass"));
 
 var RenameColumns1606665169191 = /*#__PURE__*/function () {
   function RenameColumns1606665169191() {

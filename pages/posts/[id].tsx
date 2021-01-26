@@ -58,7 +58,7 @@ const post: NextPage<Props> = props => {
     <>
       <Head><title>文章详情页</title></Head>
       <div className='page'>
-        <SwitchUser username={user.username}/>
+        <SwitchUser username={user?.username}/>
         <Header title='文章详情' navs={[{text: '目录', path: '/'}]}/>
         <article>
           <div className='time'>
@@ -219,7 +219,7 @@ export default post
 // @ts-ignore
 export const getServerSideProps: GetServerSideProps = withSession(async (context: GetServerSidePropsContext) => {
   // @ts-ignore
-  const user = context.req.session.get('currentUser')
+  const user = context.req.session.get('currentUser') || null
   const connection = await getDatabaseConnection()
   const post = await connection.manager.findOne(Post, context.params.id.toString())
   const comments = await connection.manager.find(Comment, {

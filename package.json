@@ -30,7 +30,7 @@
     "ua-parser-js": "^0.7.22"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.12",
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.165",
     "@types/md5": "^2.2.1",
